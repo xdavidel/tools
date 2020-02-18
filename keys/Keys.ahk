@@ -53,12 +53,20 @@ return
 Run, wsl.exe
 return
 
+#d::
+Send, ^#k
+return
+
 #q::
 WinClose, A
 return
 
 #+q::
 WinKill, A
+return
+
+#F9::
+Run,  batchscript_starter C:\WINDOWS\system32\cmd.exe /C C:\tools\bin\mounter.exe
 return
 
 ^!r::Reload

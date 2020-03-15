@@ -6,23 +6,23 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance force
 
 #p::
-Run, batchscript_starter C:\WINDOWS\system32\cmd.exe /C C:\tools\bin\mediactrl.bat t
+Run, c:\tools\bin\runner.vbs "mediactrl t"
 return
 
 #.::
-Run, batchscript_starter C:\WINDOWS\system32\cmd.exe /C C:\tools\bin\mediactrl.bat n
+Run, c:\tools\bin\runner.vbs "mediactrl n"
 return
 
 #,::
-Run, batchscript_starter C:\WINDOWS\system32\cmd.exe /C C:\tools\bin\mediactrl.bat p
+Run, c:\tools\bin\runner.vbs "mediactrl p"
 return
 
 #[::
-Run, batchscript_starter C:\WINDOWS\system32\cmd.exe /C C:\tools\bin\mediactrl.bat b
+Run, c:\tools\bin\runner.vbs "mediactrl b"
 return
 
 #]::
-Run, batchscript_starter C:\WINDOWS\system32\cmd.exe /C C:\tools\bin\mediactrl.bat f
+Run, c:\tools\bin\runner.vbs "mediactrl f"
 return
 
 #=::
@@ -46,7 +46,7 @@ Run, cmd /C python
 return
 
 #Enter::
-Run, cmd.exe /K cd /
+Run, cmd /K cd /
 return
 
 #+Enter::
@@ -66,7 +66,7 @@ WinKill, A
 return
 
 #F9::
-Run,  batchscript_starter C:\WINDOWS\system32\cmd.exe /C C:\tools\bin\mounter.exe
+Run,  c:\tools\bin\runner.vbs "mounter.exe"
 return
 
 ^!r::Reload

@@ -38,7 +38,7 @@ Send, {Volume_Mute}
 return
 
 #m::
-Run, cmd /C ncmpc
+Run, cmd /C ncmpc.lnk
 return
 
 #a::

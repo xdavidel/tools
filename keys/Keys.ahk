@@ -85,7 +85,7 @@ WinKill, A
 return
 
 #F8::
-Run,  vboxes
+Run,  c:\tools\bin\runner.vbs vboxes
 return
 
 #F9::

@@ -1,1 +1,1 @@
-powershell -executionpolicy bypass -File "%~dp0\vboxes.ps1"
+powershell -nologo -executionpolicy bypass -File "%~dp0\vboxes.ps1"

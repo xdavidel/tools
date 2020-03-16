@@ -45,6 +45,25 @@ return
 Run, cmd /C python
 return
 
+; WINDOWS KEY + H TOGGLES HIDDEN FILES
+#h::
+RegRead, HiddenFiles_Status, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced, Hidden
+If HiddenFiles_Status = 2 
+RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced, Hidden, 1
+Else 
+RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced, Hidden, 2
+
+;refresh Desktop/folder windows
+DetectHiddenWindows, On
+GroupAdd, vGroupFolder, ahk_class CabinetWClass
+GroupAdd, vGroupFolder, ahk_class ExploreWClass
+PostMessage, 0x111, 28931, , SHELLDLL_DefView1, ahk_class Progman
+WinGet, vWinList, List, ahk_group vGroupFolder
+Loop, %vWinList%
+PostMessage, 0x111, 41504, , ShellTabWindowClass1, % "ahk_id " vWinList%A_Index%
+;PostMessage, 0x111, 28931, , SHELLDLL_DefView1, % "ahk_id " vWinList%A_Index% ;also works
+Return
+
 #Enter::
 Run, cmd /K cd /
 return

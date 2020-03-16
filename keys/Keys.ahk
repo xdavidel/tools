@@ -84,8 +84,12 @@ return
 WinKill, A
 return
 
+#F8::
+Run,  vboxes
+return
+
 #F9::
-Run,  c:\tools\bin\runner.vbs "mounter.exe"
+Run,  c:\tools\bin\runner.vbs "powershell mounter.ps1"
 return
 
 ^!r::Reload

@@ -73,7 +73,7 @@ Run, wsl.exe
 return
 
 #d::
-Run, c:\tools\bin\runner.vbs "powershell dmenu_run.ps1"
+Run, c:\tools\bin\runner.vbs "dmenu_run.bat"
 return
 
 #q::

@@ -2,5 +2,6 @@ ghidra*
 HexEdit/
 doc/
 mpd/log
-mpd/state
 mpd/database/database
+mpd/state
+tcc/

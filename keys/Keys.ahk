@@ -73,7 +73,7 @@ Run, wsl.exe
 return
 
 #d::
-Send, ^#k
+Run, c:\tools\bin\runner.vbs "dmenu_run.bat"
 return
 
 ;#q::

@@ -76,8 +76,13 @@ return
 Send, ^#k
 return
 
+;#q::
+;WinClose, A
+;return
+
 #q::
-WinClose, A
+WinGetTitle, Title, A
+PostMessage, 0x112, 0xF060,,, %Title% 
 return
 
 #+q::

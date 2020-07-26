@@ -2,47 +2,63 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+setTitleMatchMode, 2 ; set title match mode to "contains"
 
 #SingleInstance force
 
+; Toggle music play/pause
 #p::
 Run, c:\tools\bin\runner.vbs "mediactrl t"
 return
 
+; Next song
 #.::
 Run, c:\tools\bin\runner.vbs "mediactrl n"
 return
 
+; Previus song 
 #,::
 Run, c:\tools\bin\runner.vbs "mediactrl p"
 return
 
+; Backward song
 #[::
 Run, c:\tools\bin\runner.vbs "mediactrl b"
 return
 
+; Forward song
 #]::
 Run, c:\tools\bin\runner.vbs "mediactrl f"
 return
 
+; Volume Up
 #=::
 Send, {Volume_Up}
 return
 
+; Volume Down
 #-::
 Send, {Volume_Down}
 return
 
+; Volume Mute
 #+m::
 Send, {Volume_Mute}
 return
 
+; Audio Media Player
 #m::
 Run, cmd /C ncmpc.lnk
 return
 
+; Python shell
 #a::
 Run, cmd /C python
+return
+
+; Web Browser
+#w::
+ActivateOrOpen("- Brave", "brave.exe")
 return
 
 ; WINDOWS KEY + H TOGGLES HIDDEN FILES
@@ -64,45 +80,75 @@ PostMessage, 0x111, 41504, , ShellTabWindowClass1, % "ahk_id " vWinList%A_Index%
 ;PostMessage, 0x111, 28931, , SHELLDLL_DefView1, % "ahk_id " vWinList%A_Index% ;also works
 Return
 
+; Command Prompt
 #Enter::
 Run, cmd /K cd /
 return
 
+; Wsl prompt
 #+Enter::
 Run, wsl.exe
 return
 
+; Dmenu
 #d::
 Run, c:\tools\bin\runner.vbs "dmenu_run.bat"
 return
 
+; Close focused window (Including Explorer.exe)
 ;#q::
 ;WinClose, A
 ;return
 
+; Close focused window
 #q::
 WinGetTitle, Title, A
 PostMessage, 0x112, 0xF060,,, %Title% 
 return
 
+; Force Kill a window
 #+q::
 WinKill, A
 return
 
+; Choose Virtualbox VM
 #F8::
 Run,  c:\tools\bin\runner.vbs vboxes
 return
 
+; Disk Mounter
 #F9::
 Run,  c:\tools\bin\runner.vbs "powershell mounter.ps1"
 return
 
+; Reload autohotkey script
 ^!r::Reload
 return
 
 ; Globals
 DesktopCount = 2 ; Windows starts with 2 desktops at boot
 CurrentDesktop = 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
+
+; This Function activate a program if already running.
+; Else, it open a new instance of the program
+ActivateOrOpen(window, program)
+{
+	; check if window exists
+	if WinExist(window)
+	{
+		WinActivate  ; Uses the last found window.
+	}
+	else
+	{   ; else start requested program
+		 Run cmd /c "start ^"^" ^"%program%^"",, Hide ;use cmd in hidden mode to launch requested program
+		 WinWait, %window%,,5		; wait up to 5 seconds for window to exist
+		 IfWinNotActive, %window%, , WinActivate, %window%
+		 {
+			  WinActivate  ; Uses the last found window.
+		 }
+	}
+	return
+}
 
 ;
 ; This function examines the registry to build an accurate list of the current virtual desktops and which one we're currently on.

@@ -5,3 +5,4 @@ mpd/log
 mpd/database/database
 mpd/state
 tcc/
+android_sdk/

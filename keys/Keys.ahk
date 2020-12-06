@@ -8,27 +8,27 @@ setTitleMatchMode, 2 ; set title match mode to "contains"
 
 ; Toggle music play/pause
 #p::
-Run, c:\tools\bin\runner.vbs "mediactrl t"
+Run, cmd /c "mediactrl t",,Hide
 return
 
 ; Next song
 #.::
-Run, c:\tools\bin\runner.vbs "mediactrl n"
+Run, cmd /c "mediactrl n",,Hide
 return
 
 ; Previus song 
 #,::
-Run, c:\tools\bin\runner.vbs "mediactrl p"
+Run, cmd /c "mediactrl p",,Hide
 return
 
 ; Backward song
 #[::
-Run, c:\tools\bin\runner.vbs "mediactrl b"
+Run, cmd /c "mediactrl b",,Hide
 return
 
 ; Forward song
 #]::
-Run, c:\tools\bin\runner.vbs "mediactrl f"
+Run, cmd /c "mediactrl f",,Hide
 return
 
 ; Volume Up
@@ -48,7 +48,9 @@ return
 
 ; Audio Media Player
 #m::
-Run, cmd /C ncmpc.lnk
+If !ProcessExist("mpd.exe")
+	Run, mpd,,Hide
+Run, cmd /C "ncmpc.lnk"
 return
 
 ; Python shell
@@ -92,7 +94,7 @@ return
 
 ; Dmenu
 #d::
-Run, c:\tools\bin\runner.vbs "dmenu_run.bat"
+Run, dmenu_run.bat,,Hide
 return
 
 ; Close focused window (Including Explorer.exe)
@@ -113,12 +115,12 @@ return
 
 ; Choose Virtualbox VM
 #F8::
-Run,  c:\tools\bin\runner.vbs vboxes
+Run, vboxes,,Hide
 return
 
 ; Disk Mounter
 #F9::
-Run,  c:\tools\bin\runner.vbs "powershell mounter.ps1"
+Run, powershell mounter.ps1,,Hide
 return
 
 ; Reload autohotkey script
@@ -128,6 +130,12 @@ return
 ; Globals
 DesktopCount = 2 ; Windows starts with 2 desktops at boot
 CurrentDesktop = 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
+
+; Check if process is running
+ProcessExist(Name) {
+	Process,Exist,%Name%
+	return Errorlevel
+}
 
 ; This Function activate a program if already running.
 ; Else, it open a new instance of the program
@@ -310,7 +318,6 @@ OutputDebug, [loading] desktops: %DesktopCount% current: %CurrentDesktop%
 ^2::moveToDesktopNumber(2)
 ; #+1::moveToDesktopNumber(1)
 ; #+2::moveToDesktopNumber(2)
-
 
 ^!c::createVirtualDesktop()
 ^!d::deleteVirtualDesktop()

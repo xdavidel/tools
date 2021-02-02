@@ -63,6 +63,19 @@ return
 ActivateOrOpen("- Brave", "brave.exe")
 return
 
+; Window Transparentcy
+#+End::
+WinGet, currentTransparency, Transparent, A
+if (currentTransparency = OFF)
+{
+    WinSet, Transparent, 235, A
+}
+else
+{
+    WinSet, Transparent, OFF, A
+}
+return
+
 ; WINDOWS KEY + H TOGGLES HIDDEN FILES
 #h::
 RegRead, HiddenFiles_Status, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced, Hidden
@@ -90,11 +103,6 @@ return
 ; Wsl prompt
 #+Enter::
 Run, wsl.exe
-return
-
-; Dmenu
-#d::
-Run, dmenu_run.bat,,Hide
 return
 
 ; Close focused window (Including Explorer.exe)

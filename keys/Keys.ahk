@@ -4,7 +4,71 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 setTitleMatchMode, 2 ; set title match mode to "contains"
 
+; Available eys
+; ---------------
+; # = Superkey
+; ^ = Ctrl
+; ! = Alt
+; + = Shift
+
 #SingleInstance force
+
+; move active window 100 pixels right
+#!l::
+wingetpos x,y,w,h,A          ; get coordinates of the active window
+x += 100			         ; add 100 to the x coordinate
+winmove, A,,%x%,%y%,%w%,%h%  ; make the active window use the new coordinates
+return				         ; finish
+
+; move active window 100 pixels left
+#!h::
+wingetpos x,y,w,h,A
+x -= 100
+winmove, A,,%x%,%y%,%w%,%h%
+return
+
+; move active window 100 pixels up
+#!k::
+wingetpos x,y,w,h,A
+y -= 100
+winmove, A,,%x%,%y%,%w%,%h%
+return
+
+; move active window 100 pixels down
+#!j::
+wingetpos x,y,w,h,A
+y += 100
+winmove, A,,%x%,%y%,%w%,%h%
+return
+
+
+; resize active window +50 pixels right
+#!right::
+wingetpos x,y,w,h,A
+w += 50
+winmove, A,,%x%,%y%,%w%,%h%
+return
+
+; resize active window -50 pixels right
+#!left::
+wingetpos x,y,w,h,A
+w -= 50
+winmove, A,,%x%,%y%,%w%,%h%
+return
+
+; resize active window +50 pixels down
+#!down::
+wingetpos x,y,w,h,A
+h += 50
+winmove, A,,%x%,%y%,%w%,%h%
+return
+
+; resize active window -50 pixels down
+#!up::
+wingetpos x,y,w,h,A
+h -= 50
+winmove, A,,%x%,%y%,%w%,%h%
+return
 
 ; Toggle music play/pause
 #p::
